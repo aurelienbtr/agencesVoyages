@@ -1,13 +1,11 @@
-package agencesVoyages.agents.nature;
+package agencesVoyages.agents;
 
-import agencesVoyages.agents.TravellerAgent;
 import agencesVoyages.data.ComposedJourney;
 
 import java.util.List;
 import java.util.OptionalDouble;
 
-public class prudente extends TravellerAgent {
-
+public class normal extends TravellerAgent {
 
     @Override
     public ComposedJourney chooseJourneyByNature(String preference, List<ComposedJourney> journeys) {
@@ -41,8 +39,8 @@ public class prudente extends TravellerAgent {
                             double durationJ2 = avg(finalMin, finalMax, j2.getDuration());
                             double confianceAgenceJ1 = avg(0, 10, j1.getConfiance());
                             double confianceAgenceJ2 = avg(0, 10, j2.getConfiance());
-                            int resultJ1 = (int) ((durationJ1 * 0.1 + confianceAgenceJ1 * 0.9) * 100);
-                            int resultJ2 = (int) ((durationJ2 * 0.1 + confianceAgenceJ2 * 0.9) * 100);
+                            int resultJ1 = (int) ((durationJ1 + confianceAgenceJ1) * 100);
+                            int resultJ2 = (int) ((durationJ2 + confianceAgenceJ2) * 100);
 
                             return resultJ1 - resultJ2;
                         }
@@ -64,8 +62,8 @@ public class prudente extends TravellerAgent {
                             double confortJ2 = avg(finalMin1, finalMax1, j2.getConfort());
                             double confianceAgenceJ1 = avg(0, 10, j1.getConfiance());
                             double confianceAgenceJ2 = avg(0, 10, j2.getConfiance());
-                            int resultJ1 = (int) ((confortJ1 * 0.1 + confianceAgenceJ1 * 0.9) * 100);
-                            int resultJ2 = (int) ((confortJ2 * 0.1 + confianceAgenceJ2 * 0.9) * 100);
+                            int resultJ1 = (int) ((confortJ1 + confianceAgenceJ1) * 100);
+                            int resultJ2 = (int) ((confortJ2 + confianceAgenceJ2) * 100);
 
                             return resultJ1 - resultJ2;
                         }
@@ -88,8 +86,8 @@ public class prudente extends TravellerAgent {
                             double costJ2 = avg(finalMin1, finalMax1, j2.getCost());
                             double confianceAgenceJ1 = avg(0, 10, j1.getConfiance());
                             double confianceAgenceJ2 = avg(0, 10, j2.getConfiance());
-                            int resultJ1 = (int) ((costJ1 * 0.1 + confianceAgenceJ1 * 0.9) * 100);
-                            int resultJ2 = (int) ((costJ2 * 0.1 + confianceAgenceJ2 * 0.9) * 100);
+                            int resultJ1 = (int) ((costJ1 + confianceAgenceJ1) * 100);
+                            int resultJ2 = (int) ((costJ2 + confianceAgenceJ2) * 100);
 
                             return resultJ1 - resultJ2;
                         }
@@ -124,8 +122,8 @@ public class prudente extends TravellerAgent {
                             double durationJ2 = avg(finalMin, finalMax, j2.getDuration());
                             double confianceAgenceJ1 = avg(0, 10, j1.getConfiance());
                             double confianceAgenceJ2 = avg(0, 10, j2.getConfiance());
-                            int resultJ1 = (int) ((costJ1 * 0.05 + durationJ1 * 0.05 + confianceAgenceJ1 * 0.9) * 100);
-                            int resultJ2 = (int) ((costJ2 * 0.05 + durationJ2 * 0.05 + confianceAgenceJ2 * 0.9) * 100);
+                            int resultJ1 = (int) ((costJ1 + durationJ1 + confianceAgenceJ1) * 100);
+                            int resultJ2 = (int) ((costJ2 + durationJ2 + confianceAgenceJ2) * 100);
 
                             return resultJ1 - resultJ2;
                         }
@@ -147,8 +145,8 @@ public class prudente extends TravellerAgent {
                             double durationJ2 = avg(finalMin1, finalMax1, j2.getCost());
                             double confianceAgenceJ1 = avg(0, 10, j1.getConfiance());
                             double confianceAgenceJ2 = avg(0, 10, j2.getConfiance());
-                            int resultJ1 = (int) ((durationJ1 * 0.1 + confianceAgenceJ1 * 0.9) * 100);
-                            int resultJ2 = (int) ((durationJ2 * 0.1 + confianceAgenceJ2 * 0.9) * 100);
+                            int resultJ1 = (int) ((durationJ1 + confianceAgenceJ1) * 100);
+                            int resultJ2 = (int) ((durationJ2 + confianceAgenceJ2) * 100);
 
                             return resultJ1 - resultJ2;
                         }

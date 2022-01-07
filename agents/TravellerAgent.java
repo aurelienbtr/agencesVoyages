@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import agencesVoyages.comportements.ContractNetAchat;
 import agencesVoyages.data.ComposedJourney;
+import agencesVoyages.data.Journey;
 import agencesVoyages.data.JourneysList;
 import agencesVoyages.gui.TravellerGui;
 import jade.core.AID;
@@ -39,6 +40,12 @@ public abstract class TravellerAgent extends GuiAgent {
 
 	// liste d'enchere
 	private ArrayList<AID> enchere;
+
+	//critere
+	private String critere;
+
+
+
 
 	/** catalog received by the sellers */
 	private JourneysList catalogs;
@@ -77,7 +84,34 @@ public abstract class TravellerAgent extends GuiAgent {
 		});
 		
 	}
+// on effectue des modifs sur le catalogue en cas d'alerte
+	public void getAlertMessage(ACLMessage msg) {
 
+		// On split le message pour récupérer le point de départ et le point d'arriver
+		String[] splitMsg = msg.getContent().split(",");
+		String start = splitMsg[0].toUpperCase();
+		String end = splitMsg[1].toUpperCase();
+
+		// Si l'on a un trajet en cours
+		if (myJourney != null) {
+			// On recherche un nouveau trajet pour pallier à l'alerte reçure
+			Journey journey = myJourney.getJourneyFromStartAndStop(start, end);
+			// Si l'on en trouve un nouveau on refait une demande d'achat pour pouvoir réaliser le trajet
+			if (journey != null) {
+				addBehaviour(
+						new ContractNetAchat(
+								this,
+								new ACLMessage(ACLMessage.CFP),
+								start,
+								end,
+								journey.getDepartureDate(),
+								critere
+						)
+				);
+			}
+		}
+
+	}
 
 
 
@@ -124,7 +158,7 @@ public abstract class TravellerAgent extends GuiAgent {
 	public void computeComposedJourney(final String from, final String to, final int departure,
 			final String preference) {
 		final List<ComposedJourney> journeys = new ArrayList<>();
-		//recherche de trajets ac tps d'attentes entre via = 60mn
+		//recherche de trajets avecc des temps d'attentes entre via = 60mn
 		final boolean result = catalogs.findIndirectJourney(from, to, departure, 60, new ArrayList<>(),
 				new ArrayList<>(), journeys);
 
@@ -149,7 +183,6 @@ public abstract class TravellerAgent extends GuiAgent {
 				journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
 				break;
 			case "duration-cost":
-				//TODO: replace below to make a compromise between cost and confort...
 				journeys.sort(Comparator.comparingDouble(ComposedJourney::getCost));
 				break;
 			default:
@@ -168,6 +201,7 @@ public abstract class TravellerAgent extends GuiAgent {
 			doDelete();
 		}
 		if (eventFromGui.getType() == TravellerAgent.BUY_TRAVEL) {
+			this.critere = (String) eventFromGui.getParameter(3);
 			addBehaviour(new ContractNetAchat(this, new ACLMessage(ACLMessage.CFP),
 					(String) eventFromGui.getParameter(0), (String) eventFromGui.getParameter(1),
 					(Integer) eventFromGui.getParameter(2), (String) eventFromGui.getParameter(3)));
@@ -181,6 +215,10 @@ public abstract class TravellerAgent extends GuiAgent {
 		return (ArrayList<AID>)vendeurs.clone();
 	}
 
+	//calcul de moyenne
+	public double avg(double min, double max, double toTest) {
+		return (toTest - min) / (max - toTest);
+	}
 
 	/**
 	 * print a message on the window lined to the agent
@@ -204,3 +242,4 @@ public abstract class TravellerAgent extends GuiAgent {
 
 	public abstract ComposedJourney chooseJourneyByNature(String preference, List<ComposedJourney> journeys);
 }
+

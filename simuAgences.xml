@@ -2,39 +2,26 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-01-04T12:47:59.504480Z</date>
-  <millis>1641300479504</millis>
-  <nanos>480000</nanos>
-  <sequence>10</sequence>
-  <logger>simu</logger>
-  <level>INFO</level>
-  <class>agencesVoyages.agents.AgenceAgent</class>
-  <method>takeDown</method>
-  <thread>32</thread>
-  <message>Agent Agence : agentBus@172.20.10.11:1099/JADE quitte la plateforme.</message>
-</record>
-<record>
-  <date>2022-01-04T12:48:01.008201Z</date>
-  <millis>1641300481008</millis>
-  <nanos>201000</nanos>
-  <sequence>11</sequence>
-  <logger>simu</logger>
-  <level>INFO</level>
-  <class>agencesVoyages.agents.AgenceAgent</class>
-  <method>takeDown</method>
-  <thread>34</thread>
-  <message>Agent Agence : agentCar@172.20.10.11:1099/JADE quitte la plateforme.</message>
-</record>
-<record>
-  <date>2022-01-04T12:48:02.641859Z</date>
-  <millis>1641300482641</millis>
-  <nanos>859000</nanos>
+  <date>2022-01-07T21:00:54.462255Z</date>
+  <millis>1641589254462</millis>
+  <nanos>255000</nanos>
   <sequence>12</sequence>
   <logger>simu</logger>
   <level>INFO</level>
   <class>agencesVoyages.agents.AgenceAgent</class>
   <method>takeDown</method>
-  <thread>36</thread>
-  <message>Agent Agence : agentTrain@172.20.10.11:1099/JADE quitte la plateforme.</message>
+  <thread>34</thread>
+  <message>Agent Agence : agentCarAutre@192.168.0.10:1099/JADE quitte la plateforme.</message>
 </record>
-</log>
+<record>
+  <date>2022-01-07T21:00:55.877721Z</date>
+  <millis>1641589255877</millis>
+  <nanos>721000</nanos>
+  <sequence>13</sequence>
+  <logger>simu</logger>
+  <level>INFO</level>
+  <class>agencesVoyages.agents.AgenceAgent</class>
+  <method>takeDown</method>
+  <thread>40</thread>
+  <message>Agent Agence : agentBus@192.168.0.10:1099/JADE quitte la plateforme.</message>
+</record>
