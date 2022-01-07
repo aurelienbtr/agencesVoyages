@@ -1,6 +1,7 @@
 package agencesVoyages.data;
 
 import java.io.Serializable;
+import agencesVoyages.agents.AgenceAgent;
 
 /**
  * class that represents a journey<br>
@@ -34,6 +35,11 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 	String proposedBy;
 	/** nb of remaining places (not used) */
 	private int places = 1;
+	/** la confiance **/
+	private int confiance;
+	/** l'agence lie au trajt*/
+	private AgenceAgent agence;
+
     /**some fields to improve the memory management*/
     private static String TO = " to ";
     private static String TRAJECTFROM = "traject from ";
@@ -42,6 +48,7 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
     private static String ARRIVAL = ", arrival:";
     private static String COST = ", cost = ";
     private static String PROPOSEDBY = ", proposed by ";
+	private static String CONFIANCE = ",confiance";
 
 	public Journey(final String _start, final String _stop, final String _means, final int _departureDate,
 			final int _duration) {
@@ -202,6 +209,31 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 	public void setPlaces(int places) {
 		this.places = places;
 	}
+
+	//ici on decremente le nombre de place disponible
+	public void getTicket() {
+		this.places--;
+	}
+
+	public int getJourneyConfiance(){
+		return confiance;
+	}
+	public int getConfiance() {
+		return agence.getConfiance();
+	}
+
+	public AgenceAgent getAgence() {
+		return agence;
+	}
+	public void setAgence(AgenceAgent agence)
+	{
+		this.agence = agence;
+	}
+
+	public void setConfiance(int confiance){
+		this.confiance = confiance;
+	}
+
 
 	@Override
 	public int compareTo(Journey o) {

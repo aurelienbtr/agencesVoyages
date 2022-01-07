@@ -2,7 +2,9 @@ package agencesVoyages.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import jade.core.AID;
 
@@ -100,6 +102,25 @@ public class ComposedJourney implements Serializable {
 		arrivalDate = journeys.get(nb - 1).arrivalDate;
 		duration = ((arrivalDate / 100) * 60 + arrivalDate % 100) - ((departureDate / 100) * 60 + departureDate % 100);
 	}
+/** on retourne une journey du debut a la fin **/
+	public Journey getJourneyFromStartAndStop(String start, String end) {
+
+		List<Journey> potentialJourney = new ArrayList<>();
+		for (Journey j : this.journeys) {
+			// Si meme destination -> on ajoute a la liste des trajets potentiels
+			if (j.getStart().equals(start) && j.getStop().equals(end)) {
+				potentialJourney.add(j);
+			}
+		}
+		// vu que les trajets sont tries par tps de depart, on retourne le premier si la liste n'est pas vide
+		if (potentialJourney.size() > 0) {
+			return potentialJourney.get(0);
+		}
+
+
+		return null; // aucun trajt
+	}
+
 
 	//some String constants to improve the memory management
 	private static String JOURNEYFROM = "journey from ";
@@ -237,5 +258,17 @@ public class ComposedJourney implements Serializable {
 		// ComposedJourney cj = new ComposedJourney();
 		// cj.addJourneys(journeys.get(0));
 		// System.out.println(cj);
+	}
+
+	// on retourne 0 si pas de trajet
+	// sinon on retourne la confiance
+	//à chaque problème sur un axe, la confiance envers la relation passe à 0
+	
+	public int getConfiance() {
+
+		Optional<Journey> potentialJourney;
+		potentialJourney = this.journeys.stream().min(Comparator.comparingInt(Journey::getConfiance));
+
+		return potentialJourney.isPresent() ? potentialJourney.get().getConfiance() : 0;
 	}
 }

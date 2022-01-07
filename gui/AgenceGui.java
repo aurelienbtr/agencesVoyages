@@ -7,9 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import agencesVoyages.agents.AgenceAgent;
 import jade.gui.GuiEvent;
@@ -42,6 +40,7 @@ public class AgenceGui extends JFrame {
 		jTextArea.setColumns(40);
 		jTextArea.setRows(5);
 		JScrollPane jScrollPane = new JScrollPane(jTextArea);
+		getContentPane().add(BorderLayout.PAGE_START, new JLabel("confianece : " + a.getConfiance() + "/10", SwingConstants.CENTER)); // on ajoute visuellement la confiance
 		getContentPane().add(BorderLayout.CENTER, jScrollPane);
 
 		// Make the agent terminate when the user closes

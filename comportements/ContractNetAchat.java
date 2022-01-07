@@ -151,7 +151,6 @@ public class ContractNetAchat extends ContractNetInitiator {
                     catch (IOException e) { e.printStackTrace(); }
                 } );
     }
-
     /**
      * methode lancee a la reception d'un message d'information (vente confirmee)
      *

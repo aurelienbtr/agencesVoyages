@@ -18,6 +18,7 @@ import agencesVoyages.launch.LaunchSimu;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 
 /**
@@ -44,6 +45,9 @@ public class AgenceAgent extends GuiAgent {
      * topic from which the alert will be received
      */
     private AID topic;
+
+    // la confiance de l'agence
+    private int confiance;
 
     // Initialisation de l'agent
     @Override
@@ -84,6 +88,8 @@ public class AgenceAgent extends GuiAgent {
         addBehaviour(new ContractNetVente(this, template, catalog));
 
     }
+
+    /// ici on va developper une fn qui effectue des modifications (en cas d'alerte) sur le catalogue
 
     // Fermeture de l'agent
     @Override
@@ -132,6 +138,16 @@ public class AgenceAgent extends GuiAgent {
                 Journey firstJourney = new Journey(origine, destination, means, departureDate, duration, cost,
                         co2, confort);
                 firstJourney.setProposedBy(this.getLocalName());
+
+                // on affecte les places en fonction des cas
+                firstJourney.setPlaces(switch (means.toLowerCase()){
+                    case "bus" -> 50;
+                    case "car" -> 3;
+                    case "train" -> 20;
+                    default -> 0;
+                        });
+                firstJourney.setProposedBy(this.getLocalName());
+                //
                 window.println(firstJourney.toString());
                 catalog.addJourney(firstJourney);
                 if (nbRepetitions > 0) {
@@ -174,4 +190,7 @@ public class AgenceAgent extends GuiAgent {
     }
 
 
+    public int getConfiance() {
+        return confiance;
+    }
 }

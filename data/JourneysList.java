@@ -32,7 +32,21 @@ public class JourneysList implements Serializable {
 	public void addJourney(String _start, String _stop, String _means, int _departureDate, int _duration) {
 		var j = new Journey(_start.toUpperCase(), _stop.toUpperCase(), _means.toUpperCase(), _departureDate,
 				_duration);
+
+		// on init les places en fonction des types
+		switch (_means.toUpperCase()) {
+			case "car":
+				j.setPlaces(3);
+				break;
+			case "train":
+				j.setPlaces(200);
+				break;
+			case "bus":
+				j.setPlaces(50);
+				break;
+		}
 		catalog.compute(j.start, (s,l)->{if(l==null)l= new ArrayList<>();l.add(j);return l;});
+
 	}
 
 	/**
@@ -128,6 +142,21 @@ public class JourneysList implements Serializable {
 		var empty= (this.catalog==null);
 		empty = empty || catalog.keySet().isEmpty();
 		return empty;
+	}
+
+	// on decremente de 1 le nb de place
+	public void getTicket(List<Journey> journeyList) {
+
+		for (Journey j : journeyList) {
+			// On recup tout les trajets du catalogue qui demarrent en mm temps
+			List<Journey> journeyList1 = catalog.get(j.start);
+			for (Journey j1 : journeyList1) {
+				// Si on retrouve le trajet alors on décremente
+				if (j1.compareTo(j) == 0) {
+					j1.getTicket();
+				}
+			}
+		}
 	}
 	
 	/**@return the journeys from a city*/

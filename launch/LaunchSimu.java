@@ -46,8 +46,23 @@ public class LaunchSimu {
 		var lesAgents = new StringBuilder();
 		lesAgents.append("client1:agencesVoyages.agents.TravellerAgent;");
 		lesAgents.append("agentCar:agencesVoyages.agents.AgenceAgent(agentsVoyage/car.csv);");
+		//ajout de car autre
+		lesAgents.append("agentCarAutre:agencesVoyages.agents.AgenceAgent(carAutre.csv);");
+
 		lesAgents.append("agentBus:agencesVoyages.agents.AgenceAgent(agentsVoyage/bus.csv);");
+		//ajout de bus autre
+		lesAgents.append("agentBusAutre:agencesVoyages.agents.AgenceAgent(busAutre.csv);");
+
 		lesAgents.append("agentTrain:agencesVoyages.agents.AgenceAgent(agentsVoyage/train.csv);");
+
+		// portail Bus
+		//Creez un agent PortailBus qui sert d'intermédiaire entre les clients et les bus
+		lesAgents.append("portailBus:agencesVoyages.agents.PortailAgence(bus);");
+
+		//portail Car
+		// un agent PortailCar qui fait de même pour les agences de voiture.
+		lesAgents.append("portailCar:agencesVoyages.agents.PortailAgence(car);");
+
 		lesAgents.append("alert1:agencesVoyages.agents.AlertAgent");
 		pp.setProperty(Profile.AGENTS, lesAgents.toString());
 		// create a default Profile
