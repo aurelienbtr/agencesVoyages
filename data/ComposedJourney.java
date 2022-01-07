@@ -263,7 +263,7 @@ public class ComposedJourney implements Serializable {
 	// on retourne 0 si pas de trajet
 	// sinon on retourne la confiance
 	//à chaque problème sur un axe, la confiance envers la relation passe à 0
-	
+
 	public int getConfiance() {
 
 		Optional<Journey> potentialJourney;

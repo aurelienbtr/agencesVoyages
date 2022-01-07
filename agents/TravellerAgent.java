@@ -28,7 +28,7 @@ import jade.proto.SubscriptionInitiator;
  * @author Emmanuel ADAM
  */
 @SuppressWarnings("serial")
-public class TravellerAgent extends GuiAgent {
+public abstract class TravellerAgent extends GuiAgent {
 	/** code pour ajout de livre par la gui */
 	public static final int EXIT = 0;
 	/** code pour achat de livre par la gui */
@@ -36,6 +36,9 @@ public class TravellerAgent extends GuiAgent {
 
 	/** liste des vendeurs */
 	private ArrayList<AID> vendeurs;
+
+	// liste d'enchere
+	private ArrayList<AID> enchere;
 
 	/** catalog received by the sellers */
 	private JourneysList catalogs;
@@ -199,4 +202,5 @@ public class TravellerAgent extends GuiAgent {
 		return myJourney;
 	}
 
+	public abstract ComposedJourney chooseJourneyByNature(String preference, List<ComposedJourney> journeys);
 }

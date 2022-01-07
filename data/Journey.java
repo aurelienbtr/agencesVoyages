@@ -211,6 +211,7 @@ public class Journey implements Cloneable, Serializable, Comparable<Journey> {
 	}
 
 	//ici on decremente le nombre de place disponible
+	//Proposez et codez la décrémentation du nb de places par voyage
 	public void getTicket() {
 		this.places--;
 	}
